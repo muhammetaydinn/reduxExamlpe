@@ -1,7 +1,7 @@
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useRef} from 'react';
 import {useAppDispatch} from '../store/store';
-import {addPerson} from '../store/features/personSlice';
+import {addPerson, savePerson} from '../store/features/personSlice';
 
 const Add = () => {
   const name = useRef<string>('');
@@ -11,7 +11,7 @@ const Add = () => {
       <Text style={styles.name}>Person name : </Text>
       <TextInput
         style={styles.input}
-        onChange={e => {
+        onChange={e => { 
           name.current = e.nativeEvent.text;
         }}
         onSubmitEditing={() => {
@@ -20,7 +20,7 @@ const Add = () => {
       />
       <Button
         onPress={() => {
-          dispatch(addPerson({name: name.current}));
+          dispatch(savePerson(name.current));
         }}
         title="Add"
       />

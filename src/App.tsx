@@ -1,24 +1,49 @@
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {Header, LearnMoreLinks} from 'react-native/Libraries/NewAppScreen';
-import Add from './components/Add';
-import List from './components/List';
-import {Provider} from 'react-redux';
-import {store, } from './store/store';
+import {Button, StyleSheet, View} from 'react-native';
+import {slice1} from './store/features/generic2';
+import {store, useAppDispatch} from './store/store';
 
-function App(): JSX.Element {
+function App() {
+  console.log(store.getState());
+  const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchPerson());
+  // });
+  // const {data}=useAppSelector(state=>state.wrappedSlice)
+
   return (
-    <Provider store={store}>
-      <View style={styles.add}>
-        <Add />
-      </View>
+    <View style={{flex: 1}}>
+      <View style={styles.add}>{/* <Add /> */}</View>
       <View style={styles.list}>
-        <List />
+        <Button
+          title="Refresh"
+          onPress={() => {
+            // dispatch({ type: 'INCREMENT_B' })
+            // console.log(store.getState());
+            // function incrementCounter(type = 'A') {
+            //   return {
+            //     type: `INCREMENT_${type}`,
+            //   };
+            // }
+            // dispatch(incrementCounter());
+            // console.log(store.getState());
+            /////////////////////////////////////////////
+            // dispatch(wrappedSlice.actions.magic());
+
+            dispatch(slice1.fetchPerson());
+          }}
+        />
+        <Button
+          title="getState"
+          onPress={() => {
+            console.log(store.getState());
+          }}
+        />
+        {/* <List /> */}
       </View>
-    </Provider>
+    </View>
   );
 }
-const styles = StyleSheet.create(
-  {
+const styles = StyleSheet.create({
   add: {
     flex: 1,
     backgroundColor: '#fff',
@@ -26,7 +51,6 @@ const styles = StyleSheet.create(
   list: {
     flex: 4,
     backgroundColor: '#fff',
-    },
   },
-);
+});
 export default App;

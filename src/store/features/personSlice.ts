@@ -1,36 +1,52 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-// Person interface
-export interface Person {
-  id: number;
-  name: string;
-}
-// PersonState interface
-export interface PersonState {
-  persons: Person[];
-}
-// Initial state
-const initialState: PersonState = {
-  persons: [],
-};
-// Person slice with addPerson reducer that takes a name and adds it to the persons array
-export const PersonSlice = createSlice({
-  name: 'person',
-  initialState,
-  reducers: {
-    addPerson: (state, action: PayloadAction<{name: string}>) => {
-      state.persons.push({
-        id: state.persons.length,
-        name: action.payload.name,
-      });
-    },
-    deletePerson: (state, action: PayloadAction<{index: number}>) => {
-      state.persons.splice(action.payload.index, 1);
-      console.log(state.persons);
-    },
-  },
-});
-// Export addPerson action
+// import {PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+// // Person interface
+// export interface GenericState<T> {
+//   name: string;
+//   age: number;
+//   data?: T[];
+// }
 
-export const {addPerson, deletePerson} = PersonSlice.actions;
-// Export person reducer
-export default PersonSlice.reducer;
+
+// function createGenericSlice({sliceName, initialState}:{sliceName:string,initialState:GenericState<any>}) {
+//   const fetchPerson = createAsyncThunk(`${sliceName}/fetchPerson`, async () => {
+//     const response = await fetch('https://jsonplaceholder.typicode.com/users');
+//     const data = await response.json();
+//     return data;
+//   });
+
+
+
+//   const slice = createSlice({
+//     name: sliceName,
+//     initialState,
+//     reducers: {
+//       addPerson: (state, action: PayloadAction<{name: string}>) => {
+//         state.data?.push({
+//           id: state.data?.length,
+//           name: action.payload.name,
+//         });
+//       },
+  
+//     },
+//     extraReducers: builder => {
+//       builder.addCase(fetchPerson.pending, state => {
+//         console.log('test thunk pending');
+//       })
+//         .addCase(fetchPerson.fulfilled, (state, action) => {
+//         state.data = action.payload;
+//         }).
+//         addCase(fetchPerson.rejected, (state, action) => {
+//           console.log('rejected');
+//         }
+//         );
+
+     
+//     },
+//   });
+
+//   return {
+//     slice,
+//     reducer: slice.reducer,
+//     actions: slice.actions,
+//   };
+// }
